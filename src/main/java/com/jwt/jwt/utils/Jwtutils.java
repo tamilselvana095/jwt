@@ -18,14 +18,17 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class Jwtutils {
 	private static String secret="java";
-	private static long expiryDuration=60*60;
+	
 	
 	public String generateJwt(User user) {
 		
 		long milliTime=System.currentTimeMillis();
-		long expiryTime=milliTime+expiryDuration*1000;
+		long expiryTime=milliTime+(60*60*1000);
 		Date issuedAt=new Date(milliTime);
 		Date expiryAt=new Date(expiryTime);
+		
+		
+		//set paylode
 		
 		Claims claims=Jwts.claims()
 							.setIssuer(user.getId().toString())

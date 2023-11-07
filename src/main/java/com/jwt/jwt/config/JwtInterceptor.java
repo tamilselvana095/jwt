@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.jwt.jwt.utils.Jwtutils;
@@ -12,7 +13,7 @@ import com.jwt.jwt.utils.Jwtutils;
 import io.jsonwebtoken.Jwts;
 
 @Component
-public class JwtInterceptor extends HandlerInterceptorAdapter {
+public class JwtInterceptor implements HandlerInterceptor {
 	
 
 	@Autowired 
@@ -28,7 +29,7 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 		if(!(request.getRequestURI().contains("login") || request.getRequestURI().contains("signup"))){
 		jwtutils.Verify(auth);
 		}
-		return super.preHandle(request, response, handler);
+		return true;
 	}
 
 }
